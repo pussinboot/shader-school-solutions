@@ -1,0 +1,95 @@
+INTRODUCTION TO GLSL
+====================
+glsl is a statically typed imperative programming language
+
+variables must be assigned a type when declared
+	3 scalar types:
+	bool, int, float
+operators
+	+,-,*,/,<,>,<=,>=,==,!=
+	+=,-=,*=,/=,++,--
+procedures
+	can decompose shaders into subroutines with C-like syntax
+	declaration needs return type or "void" if none
+
+QUALIFIERS AND BUILT-INS
+========================
+
+precision specifiers
+	floats are declared with an optional precision specifier that tells the GPU how many bits to use
+		lowp - lowest possible
+		mediump - default precision
+		highp - highest possible
+	can specify precision of all floats with
+		precision highp float; @ top
+
+constants
+	const
+
+in/out
+	functions return a single value but can simulate multiple returns with reference types
+	type qualifiers for procedure arguments
+		in - passes argument value (default behavior)
+		inout - passes argument by reference
+		out - argument uninitialized, but writing to the value updates the parameter
+		const - constant value
+
+built-ins
+	built in functions some include
+		radians, degrees
+		sin, cos, tan, asin, acos, atan
+		exp, log, exp2, log2
+		pow, sqrt, inversesqrt
+		floor, ceil, fract, mod, step
+		abs, sign, min, max, clamp
+		mix - interpolation
+
+VECTORS
+=======
+
+built in types for vectors
+	bvec2, bvec3, bvec4 - boolean vector
+	ivec2, ivec3, ivec4 - integer vector
+	vec2, vec3, vec4    - float vector
+
+swizzles
+
+for accessing components of vectors
+	First component of p  = p.x = p.r = p.s = p[0]
+	Second component of p = p.y = p.g = p.t = p[1]
+	Third component of p  = p.z = p.b = p.u = p[2]
+	Fourth component of p = p.w = p.a = p.v = p[3]
+
+can select ranges/subtypes with same symbols i.e. p.xxy
+
+arithmetic operations are applied component-wise
+
+geometric functions
+	length(p) - euclidian length
+	distance(a,b) - euclidian distance
+	dot(a,b) - dot product
+	cross(a,b) - cross product
+	normalize(a) - rescale to unit length
+	faceforward(n, I, nr) - reorient a normal to point away from a surface
+	reflect(I, N) - reflects vector I along axis N
+	refract(I, N, eta) - refracts I according to Snell's law
+
+BRANCHING
+=========
+
+use sparingly!!
+
+if statements
+	if (a < 0.5) {
+	} else {
+	}
+
+comparisons
+	component-wise comparison that returns a bvec
+	lessThan(a,b), lessThanEqual(a,b)
+	greaterThan(a,b), greaterThanEqual(a,b)
+	equal(a,b)
+
+boolean operations
+	aggregate operations
+	any(b), all(b), not(b)
