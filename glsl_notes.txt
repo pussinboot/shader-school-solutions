@@ -93,3 +93,13 @@ comparisons
 boolean operations
 	aggregate operations
 	any(b), all(b), not(b)
+
+LOOPS
+=====
+
+loops are supported but the number of loops must be statically determined and bounded
+	for(int i=0; i < 100; ++i){
+	}
+	while(i < 10){
+	i++;
+	}
