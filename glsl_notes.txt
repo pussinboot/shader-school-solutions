@@ -103,3 +103,29 @@ loops are supported but the number of loops must be statically determined and bo
 	while(i < 10){
 	i++;
 	}
+
+MATRICES
+========
+
+special datatypes for low dimensional (square matrices)
+	mat2, mat3, mat4
+	matrix constructors are in column mahjor order
+
+	mat2 I = mat2(1.0, 0.0,
+	              0.0, 1.0);
+	// same thing
+	mat2 I = mat2(1.0);
+
+	can also be constructed by giving columns
+	vec2 a = vec2(1,0);
+	vec2 b = vec2(0,1);
+	mat2 I = mat2(a,b);
+
+	can access columns with square brackets so
+	vec2 a = I[0]; // a = (1,0)
+
+arithmetic
+	component wise addition  m + w
+	scalar multiplication 2 * m
+	component-wise multiplication - matrixCompMult(m,w)
+	matrix multiplication - m * w
