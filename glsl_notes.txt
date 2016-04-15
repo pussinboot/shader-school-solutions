@@ -129,3 +129,20 @@ arithmetic
 	scalar multiplication 2 * m
 	component-wise multiplication - matrixCompMult(m,w)
 	matrix multiplication - m * w
+
+
+
+
+INTRODUCTION TO FRAGMENT SHADERS
+================================
+
+a fragment is the color of some fraction of a pixel
+
+entry point is procedure called main(), no arguments or return value
+	output is RGBA color values in a builtin array gl_FragData[]
+	n-th entry in the gl_FragData[n] array represents the color that will be written to the color attachment at position n. when rendering to the drawing buffer, which has only one color attachment can use gl_FragColor (gl_FragData[0])
+
+	gl_FragCoord - special input to every gragment shader a vec4 which returns the coordinate of the fragment in device coordinates
+	gl_FragCoord.xy - coordinate of the fragment in units relative to top-left of the buffer, y - row, x - column
+	gl_FragCoord.z - depth value [0,1] 0 - closest, 1 - furthest away
+	gl_FragCoord.w - reciprocal of the homogeneous part of the fragment's position in clip coordinates
