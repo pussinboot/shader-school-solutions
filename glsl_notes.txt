@@ -151,3 +151,15 @@ THE DISCARD KEYWORD
 ===================
 
 skip rendering of a fragment with the discard statement
+
+UNIFORM VARIABLES AND TEXTURES
+==============================
+
+uniform variables are broadcast to all executions of a shader
+	useful for small, frequently changing info
+textures are 2d arrays of vectors, declared using sampler2D data type and can be accessed with built in function texture2D()
+	vec4 texture2D(
+	  in sampler2D texture, - sampler variable
+	  in vec2 coordinate, - which data is read [0,1]
+	  in float bias = 0.0 - changes filtering
+	);
