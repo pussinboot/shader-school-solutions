@@ -163,3 +163,34 @@ textures are 2d arrays of vectors, declared using sampler2D data type and can be
 	  in vec2 coordinate, - which data is read [0,1]
 	  in float bias = 0.0 - changes filtering
 	);
+
+INTRODUCTION TO VERTEX SHADERS
+==============================
+
+vertex shaders control how geometry is rendered, and are executed before fragment shaders
+	a vertex is of of the corners of a primitive
+	primitives are simplices of dimension <= 3
+		points - 1 vertex
+		lines - 2 vertices
+		triangles - 3 vertices
+	primitives are drawn by linearly interpolating between their vertices and vertex shaders control where the vertices are placed
+entry point for vertex shaders is a void procedure called main()
+output is written to gl_Position, which controls the placement of the vertex in clip coordinates
+
+attributes
+	in addition to getting inputs from uniform variables, vertex shaders can accept per-vertex information via attribute variables
+
+	attribute vec2 position;
+
+	void main() {
+	  gl_Position = vec4(position, 0, 1);
+	}
+
+VARYING VARIABLES
+=================
+
+Connecting vertex shaders to fragment shaders
+	vertex shaders can be used to send information directly to fragment shaders using the varying type qualifier
+		varying variables are declared at the global scope within a shader
+			must be float, vec2, vec3, or vec4
+			by default they are linearly interpolated across the rendered primitive
