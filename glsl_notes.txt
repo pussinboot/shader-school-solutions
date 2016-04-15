@@ -146,3 +146,8 @@ entry point is procedure called main(), no arguments or return value
 	gl_FragCoord.xy - coordinate of the fragment in units relative to top-left of the buffer, y - row, x - column
 	gl_FragCoord.z - depth value [0,1] 0 - closest, 1 - furthest away
 	gl_FragCoord.w - reciprocal of the homogeneous part of the fragment's position in clip coordinates
+
+THE DISCARD KEYWORD
+===================
+
+skip rendering of a fragment with the discard statement
