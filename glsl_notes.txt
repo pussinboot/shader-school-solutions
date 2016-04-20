@@ -194,3 +194,60 @@ Connecting vertex shaders to fragment shaders
 		varying variables are declared at the global scope within a shader
 			must be float, vec2, vec3, or vec4
 			by default they are linearly interpolated across the rendered primitive
+
+CLIP COORDINATES
+================
+
+projective geometry
+	gl_Position is a 4d vector because objects on the GPU are represented in a homogeneous coordinate system
+	basic idea is to replace points in a space with lines passing through the origin in a space which is one dimension higher since they can be parameterized by vectors
+
+	two vectors identify the same line if for a non-zero scalar multiple t
+	   [x0,y0,z0,w0]  ~   [x1,y1,z1,w1]
+                 if and only if
+		[t*x0,t*y0,t*z0,t*w0]  ==  [x1,y1,z1,w1]
+
+	lines through the origin can be identified with points in a normal Euclidian space by intersecting them with a hyperplane that does not pass through the origin
+		in webgl this hyperplane is taken to be the solution set to w=l
+		so any vector [x,y,z,w], corresponds to the 3D point [x/w,y/w,z/w]
+
+points at infinity
+	there are extra points corresponding to lines that do not pass through the hyperplane, i.e. where w = 0 called "the points at infinity"
+	act like idealized direction vectors instead of proper points
+
+clip coordinates on the gpu
+	screenColumn = 0.5 * screenWidth  * (gl_Position.x / gl_Position.w + 1.0)
+	screenRow    = 0.5 * screenHeight * (1.0 - gl_Position.y / gl_Position.w)
+	depth = gl_Position.z / gl_Position.w
+
+	simplifies testing whether or not a point is visible
+
+		-w < x < w
+		-w < y < w
+		 0 < z < w
+
+transformations
+	any change in reference frame in plane geometry can be encoded as a 4x4 matrix in homogenous coordinates
+		used to control position and orientation of the camera, the shape of the viewable frustrum and the location of objects within the scene
+
+	vec4 transformPoint(mat4 transform, vec4 point) {
+	  return transform * point;
+	}
+
+	transformPoint(A, transformPoint(B, p)) == transformPoint(A * B, p)
+
+the model-view-projection factorization
+	3d graphical applications make use of 4 different coordinate systems
+		data coordinates - vertices in the model
+		world coordinates - coordinates of objects in the scene
+		view coordinates - unprojected coordinates of the camera
+		clip coordinates - coordinates used by the gpu to render all primitives
+
+	relationship between the coordinate systems is specified with 3 diff transformations
+		model - transforms the object from data coordinates to world coordinates
+			controls the location of the object in the world
+		view - transforms world coordinate system to a viewing coordinate system
+			controls the position and orientation of the camera
+		projection - transforms the view coordinate system into device clip coordinates
+			controls whether the view is orthographic or perspective and the aspect ratio of the camera
+		
