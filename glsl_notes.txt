@@ -270,3 +270,12 @@ scaling a vector v by a factor of s along each axis can be define as follows
 	  return s * v;
 	}
 also linear in projective geometry
+
+REFLECTIONS
+===========
+
+reflections flip a vector along a given axis
+reflection of a point p along the axis n as follows
+	vec3 reflectPoint(vec3 p, vec3 n) {
+	  return p - 2.0 * dot(n, p) * n / dot(n, n);
+	}
