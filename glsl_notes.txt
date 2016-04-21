@@ -279,3 +279,19 @@ reflection of a point p along the axis n as follows
 	vec3 reflectPoint(vec3 p, vec3 n) {
 	  return p - 2.0 * dot(n, p) * n / dot(n, n);
 	}
+
+ROTATIONS
+=========
+
+a rotation is the composition of an even number of reflections
+	axis-angle notiation - any 3d rotation can be represented as a rotation in a plane about some axis since all 3d rotations can be written as product of exactly 2 reflections
+	the common line is called the axis of the rotation, angle between the two planes is called the angle of rotation
+
+rotation of a point p about the unit axis n with angle theta as follows
+	vec3 rotatePoint(vec3 p, vec3 n, float theta) {
+	  return (
+	    p * cos(theta) + cross(n, p) *
+	    sin(theta) + n * dot(p, n) *
+	    (1.0 - cos(theta))
+	  );
+	}
