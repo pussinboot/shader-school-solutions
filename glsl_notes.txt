@@ -260,3 +260,13 @@ a translation of a vector v moving the point o to the origin is a function
 	}
 but translations are not linear in affine coordinates, but they are in projective homogeneous coordinates
 	so they can be written as a matrix
+
+SCALING
+=======
+
+scaling transformations stretch or squish the coordinate axes
+scaling a vector v by a factor of s along each axis can be define as follows
+	vec3 scaleVector(vec3 v, vec3 s) {
+	  return s * v;
+	}
+also linear in projective geometry
