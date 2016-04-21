@@ -109,7 +109,7 @@ MATRICES
 
 special datatypes for low dimensional (square matrices)
 	mat2, mat3, mat4
-	matrix constructors are in column mahjor order
+	matrix constructors are in column major order
 
 	mat2 I = mat2(1.0, 0.0,
 	              0.0, 1.0);
@@ -250,4 +250,13 @@ the model-view-projection factorization
 			controls the position and orientation of the camera
 		projection - transforms the view coordinate system into device clip coordinates
 			controls whether the view is orthographic or perspective and the aspect ratio of the camera
-		
+
+TRANSLATIONS
+============
+
+a translation of a vector v moving the point o to the origin is a function
+	vec3 translatePoint(vec3 v, vec3 o) {
+	  return v - o;
+	}
+but translations are not linear in affine coordinates, but they are in projective homogeneous coordinates
+	so they can be written as a matrix
