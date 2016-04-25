@@ -295,3 +295,14 @@ rotation of a point p about the unit axis n with angle theta as follows
 	    (1.0 - cos(theta))
 	  );
 	}
+
+LIGHTING MODELS
+===============
+
+physically, images are formed by the interaction of lightwaves with some detector. these lightwaves are formed by the interaction of the electromagnetic field with different materials.
+interactions include
+	reflection, transmission, absorption, and emission of electromagnetic radiation
+visible light waves are high frequency and travel at fast speeds. as a result, physical images can be well approximated using geometrical objects, which replaces light waves with rays.
+a ray in geometric optics is a line perpendicular to the wave front representing the amount of energy in the wave at some particular frequency, ignoring polarization.
+natural light is composed of infinitely many different frequencies, however human vision can only distingush between three different classes of frequencies: r/g/b, so when rendering images we only need to track the amount of energy in the rgb bands
+in high end ocmputer graphics, ray tracing is widely used to generate physically realistic images. real time applications usually make do with more limited models of light transport and interactions.
