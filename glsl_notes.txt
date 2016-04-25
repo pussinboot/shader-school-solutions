@@ -306,3 +306,36 @@ visible light waves are high frequency and travel at fast speeds. as a result, p
 a ray in geometric optics is a line perpendicular to the wave front representing the amount of energy in the wave at some particular frequency, ignoring polarization.
 natural light is composed of infinitely many different frequencies, however human vision can only distingush between three different classes of frequencies: r/g/b, so when rendering images we only need to track the amount of energy in the rgb bands
 in high end ocmputer graphics, ray tracing is widely used to generate physically realistic images. real time applications usually make do with more limited models of light transport and interactions.
+
+DIFFUSE LIGHTING
+================
+
+Lambertian diffuse lighting
+	a simple physically based model for matte surfaces.
+	assume that the surface will absorb some portion of the incoming radiation, and scatter the rest uniformly.
+
+assuming that the light source is far enough away for all incoming light to be travelling in the same direction d. Lambert's cosine law says that the amount of diffuse light emitted from a point on the surface with a normal vector n is proportional to the following weight:
+	float lambertWeight(vec3 n, vec3 d) {
+	  return max(dot(n, d), 0.0);
+	}
+combined with an ambient term
+	vec3 reflectedLight(
+	  vec3 normal,
+	  vec3 lightDirection,
+	  vec3 ambient,
+	  vec3 diffuse
+	) {
+	  float brightness = dot(normal, lightDirection);
+	  return ambient + diffuse * max(brightness, 0.0);
+	}
+normal vectors are dual vectors, they encode planes parallel to the surface, not directions. the parallel distance along a normal vector is given by the dot product with the normal vector
+given a test point p, the distance along the normal direction at a point on the surface is given by the following function:
+	float parallelDistance(
+	  vec3 surfacePoint,
+	  vec3 surfaceNormal,
+	  vec3 p
+	) {
+	  return dot(p - surfacePoint, surfaceNormal);
+	}
+if we transform the surface into world coordinates using a model transformation then the input test point is moved by the inverse of model.
+in order for the above function to remain invariant, the surface normal must transform by the inverse transpose of model
