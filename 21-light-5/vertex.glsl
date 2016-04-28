@@ -17,6 +17,14 @@ uniform vec3 ambient;
 
 uniform PointLight lights[4];
 
+varying vec3 viewPos;
+varying vec3 normalVector;
+varying vec3 eyeDirection;
+
 void main() {
-  gl_Position = vec4(position, 1);
+	vec4 viewPosition = view * model * vec4(position, 1.0);
+	viewPos = viewPosition.xyz;
+	normalVector = normalize((vec4(normal,1) * inverseModel * inverseView).xyz);
+	eyeDirection = normalize(viewPosition.xyz);
+	gl_Position = projection*viewPosition;
 }
