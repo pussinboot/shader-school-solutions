@@ -369,3 +369,14 @@ first reflect the incoming light direction about the surface normal, then projec
 	  + diffuse * lambert
 	  + specular * phong
 	)
+
+POINT LIGHTS
+============
+
+up til now we've assumed that all our light sources are infinitely far away and that their geometry can be modelled by a single direction vector
+instead generalize to the situation where the lights are represented by idealized points which emit light uniformly in all directions
+
+replace the direction vector with a ray extending from the point on the surface to the light source:
+	vec3 lightDirection = normalize(
+	  lightPosition - surfacePosition
+	);
