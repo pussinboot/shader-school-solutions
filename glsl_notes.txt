@@ -419,3 +419,15 @@ arrays
 
 		//Modify the first light in the array
 		lights[0].radius = 100.0;
+
+NON-PHOTOREALISTIC RENDERING
+============================
+
+Cel shading
+
+physically based models of lighting are good when the goal is to create realistic images, but cel-shading is used to flatten the colors of an image giving it a more cartoony hand drawn look.
+
+the basic idea behind cel-shading is to start from the lambert diffuse lighting model, and then apply quantization to intensity values.
+for example if we want to round our light value into one of 8 different buckets which are uniformly sized:
+	float celIntensity = ceil(lightIntensity * 8.0) / 8.0;
+then we would use celIntensity instead of lightIntensity in the rest of the calculations within our lighting model.

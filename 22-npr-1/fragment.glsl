@@ -12,6 +12,12 @@ uniform vec3 diffuse;
 uniform vec3 lightDirection;
 uniform float numBands;
 
+varying vec3 fragNormal;
+
 void main() {
-  gl_FragColor = vec4(1,1,1,1);
+	float lambertWeight = dot(normalize(fragNormal),normalize(lightDirection));
+	lambertWeight = max(lambertWeight,0.0);
+	lambertWeight = ceil(lambertWeight * numBands) / numBands;
+	vec3 lightDirection = diffuse * lambertWeight;
+	gl_FragColor = vec4(lightDirection,1);
 }
