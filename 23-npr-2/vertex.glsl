@@ -15,6 +15,9 @@ uniform vec3 warm;
 uniform vec3 cool;
 uniform vec3 lightDirection;
 
+varying vec3 fragNormal;
+
 void main() {
-  gl_Position = vec4(position,1);
+	gl_Position = projection*view*model*vec4(position, 1);
+	fragNormal = (vec4(normal,0.0) * inverseModel ).xyz;
 }

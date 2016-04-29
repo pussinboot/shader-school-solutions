@@ -431,3 +431,22 @@ the basic idea behind cel-shading is to start from the lambert diffuse lighting 
 for example if we want to round our light value into one of 8 different buckets which are uniformly sized:
 	float celIntensity = ceil(lightIntensity * 8.0) / 8.0;
 then we would use celIntensity instead of lightIntensity in the rest of the calculations within our lighting model.
+
+GOOCH SHADING
+=============
+
+another simple non-photorealistic rendering techinque is gooch shading. useful for technical illustrations or otherwise coloring objects in such a way to make fine details and contours pop out.
+the basic idea is to modify lambertian diffuse lighting in two ways
+	instead of clamping negative weights to 0, weights can be [-1,1]
+	instead of interpolating from the diffuse light value to 0, the light color is smoothly interpolated over some other color space
+
+the weight for the light color in gooch shading is defined to be:
+	float goochWeight(vec3 normal, vec3 lightDirection) {
+	  return 0.5 * (1.0 + dot(normal, lightDirection));
+	}
+
+in two color Gooch shading, the color is given by interpolating between any pair of colors given this weight:
+	vec3 goochColor(vec3 cool, vec3 warm, float weight) {
+	  return (1.0 - weight) * cool + weight * warm;
+	}
+it is also possible to interpolate over more colors or to use textures for assigning the colors instead.
