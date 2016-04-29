@@ -9,10 +9,16 @@ float state(vec2 coord) {
 
 void main() {
   vec2 coord = gl_FragCoord.xy;
-
-
-  //TODO: Compute the next state for the cell at coord
   float s = state(coord);
-
-  gl_FragColor = vec4(s,s,s, 1.0);
+  float n = -1.0*s;
+  for (int i=-1;i<2;i++)
+  for (int j=-1;j<2;j++)
+  {
+  	n += state(coord+vec2(i,j));
+  }
+  float new_s = 0.0;
+  if((s == 0.0 && n == 3.0)||(s == 1.0 && (n == 2.0 || n == 3.0))){
+  	new_s = 1.0;
+  }
+  gl_FragColor = vec4(new_s,new_s,new_s, 1.0);
 }

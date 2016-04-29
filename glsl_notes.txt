@@ -450,3 +450,16 @@ in two color Gooch shading, the color is given by interpolating between any pair
 	  return (1.0 - weight) * cool + weight * warm;
 	}
 it is also possible to interpolate over more colors or to use textures for assigning the colors instead.
+
+GPGPU
+=====
+
+the practice of using graphics processing units for purposes other than 3d graphics is called general purpose GPU computing, or GPGPU for short
+
+GAME OF LIFE
+============
+
+Birth: If a cell is off and has exactly 3 neighbors, it turns on
+Life: If a cell is on, and has 2 or 3 neighbors it stays on
+Death: Otherwise, a cell turns off
+
