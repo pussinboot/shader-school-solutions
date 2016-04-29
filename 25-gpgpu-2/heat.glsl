@@ -14,8 +14,16 @@ void main() {
 
   //TODO: Compute next state using a 5-point Laplacian stencil and the rule
 
-  float y = state(coord);
+  float prev = state(coord);
+  float laplace = (
+  	state(vec2(coord.x-1.0,coord.y)) + 
+  	state(vec2(coord.x+1.0,coord.y)) + 
+  	state(vec2(coord.x,coord.y-1.0)) + 
+  	state(vec2(coord.x,coord.y+1.0))
+  	) - 4.0 * prev;
+
+  float nextState = (1.0 - kdamping) * (kdiffuse * laplace + prev);
 
 
-  gl_FragColor = vec4(y,y,y,1);
+  gl_FragColor = vec4(nextState,nextState,nextState,1);
 }
