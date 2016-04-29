@@ -463,3 +463,15 @@ Birth: If a cell is off and has exactly 3 neighbors, it turns on
 Life: If a cell is on, and has 2 or 3 neighbors it stays on
 Death: Otherwise, a cell turns off
 
+PRIMITIVES
+==========
+
+POINT SPRITES
+=============
+besides rendering triangles, webgl can also render point sprites, which can be useful for particle effects or 2D objects
+2 extra variables in point sprites
+
+gl_PointSize
+	extra float output variable for vertex shaders which is only defined when drawing points. controls the radius of the point in pixels
+gl_PointCoord
+	special fragment shader input vec2 variable which gives the coordinate of the fragment in the sprite starting from the upper left corner [0,1]
