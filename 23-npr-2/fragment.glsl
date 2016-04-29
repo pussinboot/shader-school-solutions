@@ -12,6 +12,10 @@ uniform vec3 warm;
 uniform vec3 cool;
 uniform vec3 lightDirection;
 
+varying vec3 fragNormal;
+
 void main() {
-  gl_FragColor = vec4(1,1,1,1);
+	float goochWeight = 0.5 * (1.0 + dot(normalize(fragNormal), normalize(lightDirection)));
+	vec3 goochColor = (1.0 - goochWeight) * cool + goochWeight * warm;
+	gl_FragColor = vec4(goochColor,1);
 }
